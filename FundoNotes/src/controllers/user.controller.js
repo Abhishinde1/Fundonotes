@@ -2,6 +2,7 @@
 import HttpStatus from 'http-status-codes';
 import * as UserService from '../services/user.service';
 
+
 /**
  * Controller to Register New User
  * @param  {object} req - request object
@@ -15,6 +16,25 @@ export const RegisterNewUser = async (req, res, next) => {
       code: HttpStatus.CREATED,
       data: data,
       message: 'User Registration successfully'
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+/**
+ * Controller to loginuser a user
+ * @param  {object} req - request object
+ * @param {object} res - response object
+ * @param {Function} next
+ */
+ export const Userlogin = async (req, res, next) => {
+  try {
+    const data = await UserService.Userlogin(req.body);
+    res.status(HttpStatus.OK).json({
+      code: HttpStatus.OK,
+      data: data,
+      message: 'User login successfully'
     });
   } catch (error) {
     next(error);

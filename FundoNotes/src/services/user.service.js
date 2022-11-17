@@ -1,6 +1,8 @@
 /* eslint-disable prettier/prettier */
 import User from '../models/user.model';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+// import userModel from '../models/user.model';
 
 //registration new user
 export const RegisterNewUser = async (body) => {
@@ -11,9 +13,30 @@ export const RegisterNewUser = async (body) => {
   return data;
 };
 
+//login user
+export const Userlogin=async(body)=>{
+  const data = await User.findOne({EmailId:body.EmailId});
+  if(data !== null){
+    const result=await bcrypt.compare(body.password, data.password);
+    if(result){
+      var token=jwt.sign({EmailId:data.EmailId, id:data._id},
+        process.env.SECRET_KEY);
+      return token
+    }
+    else
+    {
+      throw new Error('invalid password');
+
+    }
+  }else
+  {
+    throw new Error('invalid email');
+  }
+};
+
 //create new user
 export const Registration = async (body) => {
-  const exsit = await User.findOne({ Username: body.Username });
+  const exsit = await User.findOne({ EmailId: body.EmailId });
   if (exsit) {
     throw new Error('opps Email Exsit Already');
   } else {
