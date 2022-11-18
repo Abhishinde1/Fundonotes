@@ -22,11 +22,15 @@ const notesSchema = new Schema(
     isTrash: {
       type: Boolean,
       default: false
-    }
+    },
+    UserID: {
+      type: String
   },
-  {
+},
+{
     timestamps: true
-  }
+}
 );
+
 
 export default model('notes', notesSchema);

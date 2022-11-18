@@ -32,7 +32,7 @@ export const createNote = async (req, res) => {
  */
  export const getAllNotes = async (req, res,) => {
     try {
-      const data = await NoteService.getAllNotes();
+      const data = await NoteService.getAllNotes(req.body.UserID);
       res.status(HttpStatus.OK).json({
         code: HttpStatus.OK,
         data: data,
@@ -54,7 +54,7 @@ export const createNote = async (req, res) => {
  */
  export const GetNote = async (req, res) => {
     try {
-      const data = await NoteService.GetNote(req.params._id);
+      const data = await NoteService.GetNote(req.params._id, req.body.UserID);
       res.status(HttpStatus.OK).json({
         code: HttpStatus.OK,
         data: data,
@@ -76,7 +76,8 @@ export const createNote = async (req, res) => {
  */
 export const updateNote = async (req, res) => {
     try {
-      const data = await NoteService.updateNote(req.params._id, req.body);
+      // eslint-disable-next-line max-len
+      const data = await NoteService.updateNote(req.params._id, req.body.UserID, req.body);
       res.status(HttpStatus.ACCEPTED).json({
         code: HttpStatus.ACCEPTED,
         data: data,
@@ -98,7 +99,7 @@ export const updateNote = async (req, res) => {
  */
 export const deleteNote = async (req, res) => {
     try {
-      await NoteService.deleteNote(req.params._id);
+      await NoteService.deleteNote(req.params._id, req.body.UserID, req.body);
       res.status(HttpStatus.OK).json({
         code: HttpStatus.OK,
         data: [],
@@ -120,7 +121,8 @@ export const deleteNote = async (req, res) => {
  */
  export const archiveNote = async (req, res) => {
     try {
-      const data = await NoteService.archiveNote(req.params._id);
+      // eslint-disable-next-line max-len
+      const data = await NoteService.archiveNote(req.params._id, req.body.UserID, req.body);
       res.status(HttpStatus.ACCEPTED).json({
         code: HttpStatus.ACCEPTED,
         data: data,
@@ -142,7 +144,8 @@ export const deleteNote = async (req, res) => {
  */
 export const trashNote = async (req, res) => {
     try {
-      const data = await NoteService.trashNote(req.params._id);
+      // eslint-disable-next-line max-len
+      const data = await NoteService.trashNote(req.params._id, req.body.UserID, req.body);
       res.status(HttpStatus.ACCEPTED).json({
         code: HttpStatus.ACCEPTED,
         data: data,
