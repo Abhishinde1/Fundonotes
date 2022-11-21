@@ -24,8 +24,8 @@ export const userAuth = async (req, res, next) => {
     req.body.UserID = user.EmailId;
     next();
   } catch (error) {
-    res.status(HttpStatus.BAD_REQUEST).json({
-      code: HttpStatus.BAD_REQUEST,
+    res.status(HttpStatus.UNAUTHORIZED).json({
+      code: HttpStatus.UNAUTHORIZED,
       message: `${error}`
     });
   }

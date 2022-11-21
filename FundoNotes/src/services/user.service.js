@@ -1,5 +1,6 @@
 /* eslint-disable prettier/prettier */
 import User from '../models/user.model';
+import * as utils from '../utils/user.util';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
@@ -64,4 +65,33 @@ export const deleteUser = async (id) => {
 export const getUser = async (id) => {
   const data = await User.findById(id);
   return data;
+};
+
+//for forgot password
+export const Forgotpwd=async(body)=>{
+  const data=await User.findOne({EmailId:body.EmailId});
+  if(data!==null){
+    var token=jwt.sign(
+      {id:data._id,EmailId:data.EmailId},process.env.SECRET_KEY
+    );
+    utils.sendmail(body.EmailId);
+    return token;
+  }else{
+    throw new Error('invalid Emailid');
+  }
+}
+
+//service to reset the password
+export const resetPassword=async(body)=>{
+    const saltRounds=10;
+    const hashPassword=bcrypt.hashSync(body.password,saltRounds);
+    body.password=hashPassword;
+    const data=await User.findOneAndUpdate(
+      {EmailId:body.Emailid},
+      body,
+      {
+        new:true
+      }
+    );
+    return data;
 };
