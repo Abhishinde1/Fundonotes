@@ -4,6 +4,12 @@ import * as utils from '../utils/user.util';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
+//get  all users
+export const getAllUsers = async () => {
+  const data = await User.find( );
+  return data;
+};
+
 //login user
 export const Userlogin = async (body) => {
   const data = await User.findOne({ EmailId: body.EmailId });
@@ -11,7 +17,7 @@ export const Userlogin = async (body) => {
     const result = await bcrypt.compare(body.password, data.password);
     if (result) {
       var token = jwt.sign(
-        { EmailId: data.EmailId, id: data._id },
+        { EmailId: data.EmailId, _id: data._id },
         process.env.SECRET_KEY
       );
       return token;
@@ -84,11 +90,12 @@ export const Forgotpwd=async(body)=>{
 //service to reset the password
 export const resetPassword=async(body)=>{
     const saltRounds=10;
-    const hashPassword=bcrypt.hashSync(body.password,saltRounds);
-    body.password=hashPassword;
+    const hashpassword=await bcrypt.hash(body.password,saltRounds);
+    //body.password = hashpassword;
+    Console.log('inservice',body.EmailId);
     const data=await User.findOneAndUpdate(
-      {EmailId:body.Emailid},
-      body,
+      {EmailId:body.EmailId},
+      {password: hashpassword},
       {
         new:true
       }

@@ -127,10 +127,10 @@ controller to authorise the user for forgotten password
 export const Forgotpwd=async(req,res)=>{
   try{
     const data=await UserService.Forgotpwd(req.body);
-    res.status(HttpStatus.OK).json({
-      code:HttpStatus.OK,
+    res.status(HttpStatus.CREATED).json({
+      code:HttpStatus.CREATED,
       data:data,
-      message:'you can proceed further'
+      message:'proceed further'
     });
   }catch(error){
     res.status(HttpStatus.BAD_REQUEST).json({
@@ -149,8 +149,9 @@ controller to authorise the user for forgotten password
  export const resetPassword=async(req,res)=>{
    try{
       const data=await UserService.resetPassword(req.body);
-      res.status(HttpStatus.OK).json({
-        code:HttpStatus.OK,
+      console.log(data)
+      res.status(HttpStatus.CREATED).json({
+        code:HttpStatus.CREATED,
         data:data,
         message:'reset password is successfull'
       });

@@ -32,7 +32,7 @@ try{
         to: Email,
         subject: 'Forgot Password',
         text: 'You can Reset the Password',
-       html: `<h1></h1>To reset a password ,<a href="http://localhost:3000/api/v1/users/resetPassword">Click Here</a></h1>`
+       html: `<h1></h1>To reset a password ,<a href="http://localhost:4000/api/v1/users/resetPassword">Click Here</a></h1>`
     };
 
     const Result = await transport.sendMail(mailoption)
