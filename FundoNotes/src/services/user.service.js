@@ -63,7 +63,7 @@ export const resetPassword=async(body)=>{
     body.password=hashPassword;
     const data=await User.findOneAndUpdate(
       {EmailId:body.EmailId},
-      {password: hashpassword},
+      body,
       {
         new:true
       }
