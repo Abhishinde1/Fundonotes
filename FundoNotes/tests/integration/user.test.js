@@ -30,7 +30,6 @@ describe('User APIs Test', () => {
 
     done();
   });
-  var token;
 
 
   //1.Test case for user registration
@@ -115,7 +114,7 @@ describe('Userregistration ============> Invalid password', () => {
 });
 
 //5.Test case for valid user login
-
+var token;
 describe('UserLogin', () => {
   const inputBody={
     "EmailId":"abhishinde572@gmail.com",
@@ -189,7 +188,7 @@ describe('UserLogin=====> invalid password', () => {
 
 //9. Test case to create a new note
 
-var noteid;
+var id;
 describe('Create Note', () => {
   const inputBody={
     "title":"note",
@@ -201,10 +200,57 @@ describe('Create Note', () => {
       .set('authorization',`Bearer ${token}`)
       .send(inputBody)
       .end((err, res) => {
+        id = res.body.data._id;
        expect(res.statusCode).to.be.equal(200);
         done();
       });
     });
   });
-})
 
+//10. Test case for without giving title value in notes
+
+describe('creating new note',()=>{
+  const inputBody={
+    "title":"",
+    "description":"hello"
+  }
+  it('title should be required',(done)=>{
+    request(app)
+    .post('/api/v1/notes')
+    .set('Authorization',`Bearer ${token}`)
+    .send(inputBody)
+    .end((err,res)=>{
+      expect(res.statusCode).to.be.equal(500);
+      done();
+    });
+  });
+});
+
+//11. Test case for getting all Notes
+describe('get all the notes of the user',()=>{
+  it('notes fetched successfully',(done)=>{
+    request(app)
+    .get('/api/v1/notes')
+    .set('Authorization',`Bearer ${token}`)
+    .end((err,res)=>{
+      console.log(res.body);
+      expect(res.statusCode).to.be.equal(200);
+      done();
+    });
+  });
+});
+
+//12. Test case for Get notes by Id
+
+describe('getting the note of particular user with id',()=>{
+  it('note fetched successfully',(done)=>{
+    request(app)
+    .get(`/api/v1/notes/${id}`)
+    .set('Authorization',`Bearer ${token}`)
+    .end((err,res)=>{
+      expect(res.statusCode).to.be.equal(200);
+      done();
+    });
+  });
+});
+})
