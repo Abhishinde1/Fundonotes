@@ -27,7 +27,6 @@ export const userAuth = async (req, res, next) => {
     const user = await jwt.verify(bearerToken, process.env.SECRET_KEY);
     req.body.EmailId = user.EmailId;
     req.body._id = user.id;
-    Console.log('middleware',req.body.EmailId);
     next();
   } catch (error) {
     res.status(HttpStatus.UNAUTHORIZED).json({
@@ -41,7 +40,7 @@ export const userAuth = async (req, res, next) => {
 export const userAuthentication= async (req, res, next) => {
   try {
     let bearerToken = req.header('Authorization');
-    //console.log(bearerToken);
+    console.log(bearerToken);
     if (!bearerToken)
       throw {
         code: HttpStatus.BAD_REQUEST,
@@ -50,10 +49,7 @@ export const userAuthentication= async (req, res, next) => {
     bearerToken = bearerToken.split(' ')[1];
     
     const user = await jwt.verify(bearerToken, process.env.SECRET_KEY);
-    console.log('user========>',user)
     req.body.EmailId=user.EmailId;
-    
-    
     next();
   } catch (error) {
     res.status(HttpStatus.UNAUTHORIZED).json({
