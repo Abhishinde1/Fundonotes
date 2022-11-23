@@ -29,6 +29,7 @@ describe('User APIs Test', () => {
     done();
   });
 
+<<<<<<< HEAD
   //1.Test case for user registration
 
   describe('Userregistration', () => {
@@ -182,3 +183,6 @@ describe('UserLogin', () => {
     });
    });
 });
+=======
+  describe('GET /users', () => {
+>>>>>>> Forgot_ResetPassword
