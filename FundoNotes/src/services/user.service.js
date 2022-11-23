@@ -59,14 +59,8 @@ export const Forgotpwd=async(body)=>{
 //service to reset the password
 export const resetPassword=async(body)=>{
     const saltRounds=10;
-<<<<<<< HEAD
-    const hashpassword=await bcrypt.hash(body.password,saltRounds);
-    //body.password = hashpassword;
-    Console.log('inservice',body.EmailId);
-=======
     const hashPassword=await bcrypt.hash(body.password,saltRounds);
     body.password=hashPassword;
->>>>>>> Forgot_ResetPassword
     const data=await User.findOneAndUpdate(
       {EmailId:body.EmailId},
       {password: hashpassword},

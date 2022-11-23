@@ -75,16 +75,9 @@ controller to authorise the user for forgotten password
  export const resetPassword=async(req,res)=>{
    try{
       const data=await UserService.resetPassword(req.body);
-<<<<<<< HEAD
-      console.log(data)
-      res.status(HttpStatus.CREATED).json({
-        code:HttpStatus.CREATED,
-        data:data,
-=======
       res.status(HttpStatus.OK).json({
         code:HttpStatus.OK,
         data: data,
->>>>>>> Forgot_ResetPassword
         message:'reset password is successfull'
       });
     }catch(error){
