@@ -1,4 +1,6 @@
 /* eslint-disable prettier/prettier */
+/* eslint-disable no-unused-vars */
+/* eslint-disable prettier/prettier */
 /* eslint-disable quotes */
 /* eslint-disable prettier/prettier */
 import { expect } from 'chai';
@@ -28,6 +30,8 @@ describe('User APIs Test', () => {
 
     done();
   });
+  var token;
+
 
   //1.Test case for user registration
 
@@ -42,7 +46,7 @@ describe('User APIs Test', () => {
       request(app)
         .post('/api/v1/users/Register')
         .send(inputBody)
-        .end((err, res) => {
+        .end((_err, res) => {
           expect(res.statusCode).to.be.equal(201);
           done();
         });
@@ -62,7 +66,7 @@ describe('Userregistration =========> Invalid firstname', () => {
     request(app)
       .post('/api/v1/users/Register')
       .send(inputBody)
-      .end((err, res) => {
+      .end((_err, res) => {
         expect(res.statusCode).to.be.equal(500);
         done();
       });
@@ -112,7 +116,6 @@ describe('Userregistration ============> Invalid password', () => {
 
 //5.Test case for valid user login
 
-
 describe('UserLogin', () => {
   const inputBody={
     "EmailId":"abhishinde572@gmail.com",
@@ -122,7 +125,8 @@ describe('UserLogin', () => {
     request(app)
       .post('/api/v1/users/logins')
       .send(inputBody)
-      .end((err, res) => {
+      .end((_err, res) => {
+        token = res.body.data;
       expect(res.statusCode).to.be.equal(200);
       done();
     });
@@ -140,7 +144,7 @@ describe('UserLogin', () => {
     request(app)
       .post('/api/v1/users/logins')
       .send(inputBody)
-      .end((err, res) => {
+      .end((_err, res) => {
       expect(res.statusCode).to.be.equal(500);
       done();
     });
@@ -158,7 +162,7 @@ describe('UserLogin=====> invalid password', () => {
     request(app)
       .post('/api/v1/users/logins')
       .send(inputBody)
-      .end((err, res) => {
+      .end((_err, res) => {
       expect(res.statusCode).to.be.equal(500);
       done();
     });
@@ -176,10 +180,31 @@ describe('UserLogin=====> invalid password', () => {
     request(app)
       .post('/api/v1/users/logins')
       .send(inputBody)
-      .end((err, res) => {
+      .end((_err, res) => {
       expect(res.statusCode).to.be.equal(500);
       done();
     });
    });
 });
-});
+
+//9. Test case to create a new note
+
+var noteid;
+describe('Create Note', () => {
+  const inputBody={
+    "title":"note",
+    "description":"hello",
+  }
+  it('note created sucessfully', (done) => {
+    request(app)
+      .post('/api/v1/notes')
+      .set('authorization',`Bearer ${token}`)
+      .send(inputBody)
+      .end((err, res) => {
+       expect(res.statusCode).to.be.equal(200);
+        done();
+      });
+    });
+  });
+})
+
