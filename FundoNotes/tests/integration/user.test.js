@@ -29,7 +29,6 @@ describe('User APIs Test', () => {
     done();
   });
 
-<<<<<<< HEAD
   //1.Test case for user registration
 
   describe('Userregistration', () => {
@@ -49,11 +48,10 @@ describe('User APIs Test', () => {
         });
     });
   });
-})
 
 //2.Test case for Invalid firstname
 
-describe('Userregistration', () => {
+describe('Userregistration =========> Invalid firstname', () => {
   const inputBody={
     "Firstname":"A",
    "Lastname":"Shinde",
@@ -65,7 +63,7 @@ describe('Userregistration', () => {
       .post('/api/v1/users/Register')
       .send(inputBody)
       .end((err, res) => {
-        expect(res.statusCode).to.be.equal(400);
+        expect(res.statusCode).to.be.equal(500);
         done();
       });
   });
@@ -74,7 +72,7 @@ describe('Userregistration', () => {
 
 //3.Test case for Invalid Lastname
 
-describe('Userregistration', () => {
+describe('Userregistration=========> Invalid Lastname', () => {
   const inputBody={
     "Firstname":"Abhishek",
    "Lastname":"S",
@@ -86,7 +84,7 @@ describe('Userregistration', () => {
       .post('/api/v1/users/Register')
       .send(inputBody)
       .end((_err, res) => {
-        expect(res.statusCode).to.be.equal(400);
+        expect(res.statusCode).to.be.equal(500);
         done();
       });
   });
@@ -94,7 +92,7 @@ describe('Userregistration', () => {
 
 //4.Test case for Invalid password
 
-describe('Userregistration', () => {
+describe('Userregistration ============> Invalid password', () => {
   const inputBody={
     "Firstname":"Abhishek",
    "Lastname":"Shinde",
@@ -106,7 +104,7 @@ describe('Userregistration', () => {
       .post('/api/v1/users/Register')
       .send(inputBody)
       .end((_err, res) => {
-        expect(res.statusCode).to.be.equal(400);
+        expect(res.statusCode).to.be.equal(500);
         done();
       });
   });
@@ -114,17 +112,18 @@ describe('Userregistration', () => {
 
 //5.Test case for valid user login
 
+
 describe('UserLogin', () => {
   const inputBody={
-    "EmailID":"abhishinde572@gmail.com",
-    "Password":"Shinde"
+    "EmailId":"abhishinde572@gmail.com",
+      "password":"Shinde124"
   }
   it('user details should be saved in database', (done) => {
     request(app)
-      .post('/api/v1/users/login')
+      .post('/api/v1/users/logins')
       .send(inputBody)
       .end((err, res) => {
-      expect(res.statusCode).to.be.equal(201);
+      expect(res.statusCode).to.be.equal(200);
       done();
     });
    });
@@ -132,17 +131,17 @@ describe('UserLogin', () => {
 
  //6.Test case for invalid EmailId
 
- describe('UserLogin', () => {
+ describe('UserLogin=======>  invalid EmailId', () => {
   const inputBody={
-    "EmailID":"abhishsddfdinde572@gmail.com",
-    "Password":"Shinde"
+    "EmailId":"abhishsddfdinde572@gmail.com",
+    "password":"Shinde"
   }
   it('user details should be saved in database', (done) => {
     request(app)
-      .post('/api/v1/users/login')
+      .post('/api/v1/users/logins')
       .send(inputBody)
       .end((err, res) => {
-      expect(res.statusCode).to.be.equal(401);
+      expect(res.statusCode).to.be.equal(500);
       done();
     });
    });
@@ -150,39 +149,37 @@ describe('UserLogin', () => {
 
 //7.Test case for invalid password
 
-describe('UserLogin', () => {
+describe('UserLogin=====> invalid password', () => {
   const inputBody={
-    "EmailID": "abhishinde572@gmail.com",
-    "Password":"Shinde12477"
+    "EmailId": "abhishinde572@gmail.com",
+    "password":"Shinde12477"
   }
   it('user details should be saved in database', (done) => {
     request(app)
-      .post('/api/v1/users/login')
+      .post('/api/v1/users/logins')
       .send(inputBody)
       .end((err, res) => {
-      expect(res.statusCode).to.be.equal(401);
+      expect(res.statusCode).to.be.equal(500);
       done();
     });
    });
 });
 
- //9.TestCAse both invalid password and email
+ //8.TestCAse both invalid password and email
 
- describe('UserLogin', () => {
+ describe('UserLogin====> Invalid password and email', () => {
   const inputBody={
-    "EmailID": "abhishindedff572@gmail.com",
-    "Password":"Shinde12477"
+    "EmailId": "abhishindedff572@gmail.com",
+    "password":"Shinde12477"
   }
   it('user details should be saved in database', (done) => {
     request(app)
-      .post('/api/v1/users/login')
+      .post('/api/v1/users/logins')
       .send(inputBody)
       .end((err, res) => {
-      expect(res.statusCode).to.be.equal(401);
+      expect(res.statusCode).to.be.equal(500);
       done();
     });
    });
 });
-=======
-  describe('GET /users', () => {
->>>>>>> Forgot_ResetPassword
+});
