@@ -3,6 +3,8 @@ import User from '../models/user.model';
 import * as utils from '../utils/user.util';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
+dotenv.config();
 
 //login user
 export const Userlogin = async (body) => {
@@ -32,40 +34,7 @@ export const RegisterNewUser = async (body) => {
   return data;
 };
 
-//create new user
-export const newUserRegistration = async (body) => {
-  const saltRounds = 10;
-  const hash = bcrypt.hashSync(body.password, saltRounds);
-  body.password = hash;
-  const data = await User.create(body);
-  return data;
-};
 
-//update single user
-export const updateUser = async (_id, body) => {
-  const data = await User.findByIdAndUpdate(
-    {
-      _id
-    },
-    body,
-    {
-      new: true
-    }
-  );
-  return data;
-};
-
-//delete single user
-export const deleteUser = async (id) => {
-  await User.findByIdAndDelete(id);
-  return '';
-};
-
-//get single user
-export const getUser = async (id) => {
-  const data = await User.findById(id);
-  return data;
-};
 
 //for forgot password
 export const Forgotpwd=async(body)=>{
@@ -84,7 +53,7 @@ export const Forgotpwd=async(body)=>{
 //service to reset the password
 export const resetPassword=async(body)=>{
     const saltRounds=10;
-    const hashPassword=bcrypt.hashSync(body.password,saltRounds);
+    const hashPassword=await bcrypt.hash(body.password,saltRounds);
     body.password=hashPassword;
     const data=await User.findOneAndUpdate(
       {EmailId:body.Emailid},
