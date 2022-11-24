@@ -292,7 +292,7 @@ describe('updating the note',()=>{
   });
 
 
-  //16.archive a note by id test case
+  //15.archive a note by id test case
    describe('Archive a note by id', () => {
      it('Given note details should archive using id from database', (done) => {
        request(app)
@@ -306,7 +306,7 @@ describe('updating the note',()=>{
      });
 
 
-     //17.trash a note by id test case
+     //16.trash a note by id test case
    describe('trash a note by id', () => {
     it('Given note details should archive using id from database', (done) => {
       request(app)
@@ -320,7 +320,7 @@ describe('updating the note',()=>{
       });
     });
 
-    //15.Delete a note by id test case
+    //17.Delete a note by id test case
    describe('Deleted a note by id', () => {
     it('Given note details should be deleted from database using id', (done) => {
        request(app)
