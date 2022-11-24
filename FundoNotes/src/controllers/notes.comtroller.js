@@ -1,4 +1,6 @@
 /* eslint-disable prettier/prettier */
+/* eslint-disable max-len */
+/* eslint-disable prettier/prettier */
 import HttpStatus from 'http-status-codes';
 import * as NoteService from '../services/notes.service';
 
@@ -74,10 +76,9 @@ export const createNote = async (req, res) => {
  * @param {object} res - response object
  * @param {Function} next
  */
-export const updateNote = async (req, res) => {
+   export const updateNote = async (req, res) => {
     try {
-      // eslint-disable-next-line max-len
-      const data = await NoteService.updateNote(req.params._id, req.body.UserID, req.body);
+      const data = await NoteService.updateNote(req.params._id, req.body,req.body.UserID);
       res.status(HttpStatus.ACCEPTED).json({
         code: HttpStatus.ACCEPTED,
         data: data,
@@ -122,7 +123,7 @@ export const deleteNote = async (req, res) => {
  export const archiveNote = async (req, res) => {
     try {
       // eslint-disable-next-line max-len
-      const data = await NoteService.archiveNote(req.params._id, req.body.UserID, req.body);
+      const data = await NoteService.archiveNote(req.params._id,req.body.UserID,);
       res.status(HttpStatus.ACCEPTED).json({
         code: HttpStatus.ACCEPTED,
         data: data,
@@ -145,7 +146,7 @@ export const deleteNote = async (req, res) => {
 export const trashNote = async (req, res) => {
     try {
       // eslint-disable-next-line max-len
-      const data = await NoteService.trashNote(req.params._id, req.body.UserID, req.body);
+      const data = await NoteService.trashNote(req.params._id, req.body.UserID);
       res.status(HttpStatus.ACCEPTED).json({
         code: HttpStatus.ACCEPTED,
         data: data,
