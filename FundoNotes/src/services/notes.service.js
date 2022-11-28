@@ -1,16 +1,20 @@
 /* eslint-disable prettier/prettier */
+import { client } from '../config/redis';
 import Notes from '../models/notes.model';
+//import { client } from 'winston/lib/winston/config';
 
 //create a new note
 export const createNote = async (body) => {
+  await client.del('getalldata');
   const data = await Notes.create(body);
   return data;
 };
 
 //get all notes
 export const getAllNotes = async (UserID) => {
-  const data = await Notes.find({ UserID });
-  return data;
+  const getNotesDetails = await Notes.find({ UserID });
+  await client.set('getalldata',JSON.stringify(getNotesDetails));
+  return getNotesDetails ;
 };
 
 //get a note by id

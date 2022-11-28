@@ -18,6 +18,8 @@ import logger, { logStream } from './config/logger';
 import morgan from 'morgan';
 import swaggerJSDoc from '../src/swagger/swagger.json';
 import swaggerUi from 'swagger-ui-express';
+import redis from './config/redis';
+
 
 const app = express();
 const host = process.env.APP_HOST;
@@ -32,6 +34,7 @@ app.use('/api-docs',swaggerUi.serve,swaggerUi.setup(swaggerJSDoc));
 app.use(morgan('combined', { stream: logStream }));
 
 database();
+redis();
 
 app.use(`/api/${api_version}`, routes());
 app.use(appErrorHandler);
