@@ -23,7 +23,7 @@ export const RegisterNewUser = async (req, res, next) => {
 };
 
 /**
- * Controller to loginuser a user
+ * Controller to loginuser a users
  * @param  {object} req - request object
  * @param {object} res - response object
  * @param {Function} next

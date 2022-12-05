@@ -25,7 +25,11 @@ const notesSchema = new Schema(
     },
     UserID: {
       type: String
-  },
+    },
+    pinned: {
+      type: Boolean,
+      default: false
+    }
 },
 {
     timestamps: true
