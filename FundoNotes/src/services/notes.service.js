@@ -1,6 +1,12 @@
 /* eslint-disable prettier/prettier */
+/* eslint-disable max-len */
+/* eslint-disable no-trailing-spaces */
+/* eslint-disable prettier/prettier */
+/* eslint-disable eqeqeq */
+/* eslint-disable prettier/prettier */
 import { client } from '../config/redis';
 import Notes from '../models/notes.model';
+import User from '../models/user.model';
 //import { client } from 'winston/lib/winston/config';
 
 //create a new note
@@ -95,3 +101,30 @@ export const pinnote = async (_id, UserID) => {
   );
   return data;
 };
+
+//add collaborate
+export const Collaborate = async (_id,body) => {
+  const Check = await User.find({ EmailId:body.collaborator });
+  if (Check != null) {
+    const data = await Notes.findOneAndUpdate({ _id:_id,UserID:body.UserID },
+    //  { $addToSet: { collaborator:body.collaborator } },
+      { $push: { collaborator:body.collaborator }},
+      { new: true });
+    return data;
+  }
+};
+
+//delete collaborator
+
+export const deleteCollaborate = async (_id, collaborator) => {
+  const data = await Notes.findByIdAndUpdate({ _id: _id,collaborator:collaborator.EmailId }, 
+    { 
+      $pull: { 
+        collaborator: collaborator
+       } 
+    },
+     {
+       new: true
+       });
+  return data;
+}

@@ -1,9 +1,12 @@
 /* eslint-disable prettier/prettier */
+/* eslint-disable max-len */
+/* eslint-disable prettier/prettier */
 import express from 'express';
 import * as notesController from '../controllers/notes.comtroller';
 import { userAuth } from '../middlewares/auth.middleware';
 import { redisCheck } from '../middlewares/redis.middleware';
-import { NewNotesValidator } from '../validators/user.validator';
+import { NewNotesValidator,CollaboratorValidator } from '../validators/user.validator';
+
 
 
 const router = express.Router();
@@ -32,4 +35,9 @@ router.put('/:_id/trash', userAuth, notesController.trashNote);
 //route to pin a note
 router.put('/:_id/pin', userAuth, notesController.pinnote);
 
+//collaborator
+router.put('/:_id/collaborate',CollaboratorValidator ,userAuth, notesController.Collaborate);
+
+//delete collaborator
+router.delete('/:_id/delete' , notesController.deleteCollaborate)
 export default router;

@@ -31,3 +31,15 @@ export const NewNotesValidator = (req, res, next) => {
     next();
   }
 };
+
+export const CollaboratorValidator = (req, res, next) => {
+  const schema = Joi.object({
+    collaborator: Joi.string().email()
+  });
+  const { error } = schema.validate(req.body);
+  if (error) {
+    next(error);
+  } else {
+    next();
+  }
+};

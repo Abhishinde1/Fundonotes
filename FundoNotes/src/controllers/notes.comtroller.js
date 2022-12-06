@@ -178,3 +178,35 @@ export const trashNote = async (req, res) => {
        next(error)
       }
     };
+
+    //collaborator
+export const Collaborate = async (req, res, next) => {
+  try {
+    const data = await NoteService.Collaborate(req.params._id,req.body);
+    res.status(HttpStatus.ACCEPTED).json({
+      code: HttpStatus.ACCEPTED,
+      data: data,
+      message: 'collaborated Note Added successfully'
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+//delete collaborator
+
+export const deleteCollaborate = async (req, res) => {
+  try {
+    const data = await NoteService.deleteCollaborate(req.params._id,req.body.collaborator);
+    res.status(HttpStatus.OK).json({
+      code: HttpStatus.OK,
+      data: data,
+      message: 'collaborated note deleted successfully'
+    });
+  } catch (error) {
+    res.status(HttpStatus.BAD_REQUEST).json({
+        code: HttpStatus.BAD_REQUEST,
+        message: `${error}`
+    });
+}
+};

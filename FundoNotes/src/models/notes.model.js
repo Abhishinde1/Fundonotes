@@ -29,11 +29,14 @@ const notesSchema = new Schema(
     pinned: {
       type: Boolean,
       default: false
-    }
-},
-{
+    },
+    collaborator: [{
+      type: String
+    }],
+  },
+  {
     timestamps: true
-}
+  }
 );
 
 
