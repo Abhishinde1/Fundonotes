@@ -39,5 +39,5 @@ router.put('/:_id/pin', userAuth, notesController.pinnote);
 router.put('/:_id/collaborate',CollaboratorValidator ,userAuth, notesController.Collaborate);
 
 //delete collaborator
-router.delete('/:_id/delete' , notesController.deleteCollaborate)
+router.delete('/:_id/remove' , notesController.removeCollaborate)
 export default router;

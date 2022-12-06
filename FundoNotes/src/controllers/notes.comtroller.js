@@ -195,13 +195,13 @@ export const Collaborate = async (req, res, next) => {
 
 //delete collaborator
 
-export const deleteCollaborate = async (req, res) => {
+export const removeCollaborate = async (req, res) => {
   try {
-    const data = await NoteService.deleteCollaborate(req.params._id,req.body.collaborator);
+    const data = await NoteService.removeCollaborate(req.params._id,req.body.collaborator);
     res.status(HttpStatus.OK).json({
       code: HttpStatus.OK,
       data: data,
-      message: 'collaborated note deleted successfully'
+      message: 'collaborated note removed successfully'
     });
   } catch (error) {
     res.status(HttpStatus.BAD_REQUEST).json({
