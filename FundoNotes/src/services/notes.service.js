@@ -4,7 +4,7 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable eqeqeq */
 /* eslint-disable prettier/prettier */
-import { client } from '../config/redis';
+  import { client } from '../config/redis';
 import Notes from '../models/notes.model';
 import User from '../models/user.model';
 //import { client } from 'winston/lib/winston/config';
